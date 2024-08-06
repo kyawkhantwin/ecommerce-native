@@ -1,0 +1,148 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+   directUrl = env("DATABASE_URL_UNPOOLED")
+}
+// Product Model
+model Product {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String
+  price       Int
+  stock       Int
+  category    Category   @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  thumbnail   String
+  images      String[]
+  UserProductReview UserProductReview[]
+  productCarts       ProductCart[]
+  productOrders      ProductOrder[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+// Category Model
+model Category {
+  id        Int        @id @default(autoincrement())
+  name      String @unique
+  image String?
+  products  Product[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+// Cart Model
+model Cart {
+  id        Int        @id @default(autoincrement())
+  userId    Int         @unique
+  user      User      @relation(fields: [userId], references: [id])
+
+ 
+  productCarts  ProductCart[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model ProductCart {
+  cartId    Int
+  cart      Cart       @relation(fields: [cartId], references: [id])
+  productId Int
+  product   Product    @relation(fields: [productId], references: [id])
+ quantity Int
+  price Int
+  @@id([cartId, productId])
+}
+
+// Order Model
+model Order {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  user      User       @relation(fields: [userId], references: [id])
+  status OrderStatus @default(PENDING)
+  productOrders  ProductOrder[]
+  transaction Transaction? 
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+enum OrderStatus {
+  DONE 
+  PENDING
+}
+// OrderProduct Model (Junction Table for Many-to-Many between Order and Product)
+model ProductOrder {
+  orderId   Int
+  order     Order      @relation(fields: [orderId], references: [id])
+  productId Int
+  price Int
+  quantity  Int
+  product   Product    @relation(fields: [productId], references: [id])
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@id([orderId, productId])
+}
+
+// Transaction Model
+model Transaction {
+  id        Int        @id @default(autoincrement())
+  orderId   Int        @unique
+  order     Order      @relation(fields: [orderId], references: [id])
+  userId    Int
+  user      User       @relation(fields: [userId], references: [id])
+  total    Int
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+model Admin {
+  id Int @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+ user      User    @relation(fields: [userId], references: [id])
+  userId    Int  @unique 
+}
+
+model UserProductReview {
+  id Int @id @default(autoincrement())
+
+  userId Int 
+  user User @relation(fields: [userId],references: [id])
+
+  productId Int
+  product Product @relation(fields:[productId],references:[id])
+  
+  review String
+  rating Int
+}
+
+
+
+// User Model
+model User {
+  id         Int        @id @default(autoincrement())
+  email      String @unique
+  username   String @unique 
+  password   String
+  location   String
+  image   String?
+  cart       Cart?
+  orders     Order[]
+  transactions Transaction[]
+  admin   Admin?
+  UserProductReview UserProductReview[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  
+}
