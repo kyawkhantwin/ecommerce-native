@@ -107,7 +107,8 @@ const CreateProduct = () => {
             justifyContent="flex-start"
           >
             <Button onPress={() => navigation.navigate("product-list")}>
-              <Text>Product List</Text>
+            <ButtonText>Product List</ButtonText>
+
             </Button>
           </View>
 
@@ -205,17 +206,14 @@ const CreateProduct = () => {
                       justifyContent="flex-start"
                     >
                       <Button onPress={handleImagePicker}>
-                        <Text>Select Image</Text>
+            <ButtonText>Select Image</ButtonText>
+
                       </Button>
                     </View>
-                    <View flexDirection="row" justifyContent="flex-end">
-                      <Button onPress={handleSubmit}>
-                        {isLoading && <ButtonSpinner mr={3} />}
-                        <ButtonText>Create</ButtonText>
-                      </Button>
+                    <View flexDirection="row" justifyContent="flex-end" >
+                    
                       {selectedImage && (
-                        <View mt="$2">
-                          <Text>HI do you see photo</Text>
+                        <View mt="$2" paddingHorizontal={10}>
                           <Image
                             alt={title}
                             source={{
@@ -225,6 +223,10 @@ const CreateProduct = () => {
                           />
                         </View>
                       )}
+                        <Button onPress={handleSubmit}>
+                        {isLoading && <ButtonSpinner mr={3} />}
+                        <ButtonText>Create</ButtonText>
+                      </Button>
                     </View>
                   </VStack>
                 </HStack>

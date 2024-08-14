@@ -42,13 +42,13 @@ const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     // Update
     updateCategory: builder.mutation({
-      query: (category) => ({
-        url: `/categories/${category.id}`,
+      query: ({id,name,image}) => ({
+        url: `/categories/${id}`,
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: category,
+        body: {name,image},
       }),
       invalidatesTags: (result, error, { id }) => [{ type: "Category", id }],
     }),

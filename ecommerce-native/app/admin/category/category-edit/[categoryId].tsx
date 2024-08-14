@@ -83,7 +83,7 @@ const EditCategory = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <VStack space="lg" marginHorizontal="$5">
-          <Heading>Edit Product</Heading>
+          <Heading>Edit Category</Heading>
           <Box
             flexDirection="row"
             justifyContent="flex-start"
@@ -140,7 +140,7 @@ const EditCategory = () => {
                   <Box mt="$2">
                     <Image
                       source={{ uri: selectedImage }}
-                      style={{ width: "50%", height: 500 }}
+                      style={{ width: 150, height: 200 }}
                     />
                   </Box>
                 )}

@@ -27,6 +27,7 @@ import { ConfigModule } from '@nestjs/config';
     ReviewModule,
     ConfigModule.forRoot({
       isGlobal: true, // Makes the ConfigModule available globally
+      envFilePath: '.env', 
     }),
   ],
 

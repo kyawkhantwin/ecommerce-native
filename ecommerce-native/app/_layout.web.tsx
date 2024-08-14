@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { store } from "@/redux/store";
 import { config } from "@gluestack-ui/config";
-import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { GluestackUIProvider, View } from "@gluestack-ui/themed";
 import { Provider } from "react-redux";
 import AppStack from "./AppStack";
 import {

@@ -23,7 +23,6 @@ export class AuthService {
 
   async login(createLoginDto: CreateLoginDto) {
     const { emailOrUsername, password } = createLoginDto;
-
     const user = (await this.databaseService.user.findFirst({
       where: {
         OR: [{ email: emailOrUsername }, { username: emailOrUsername }],

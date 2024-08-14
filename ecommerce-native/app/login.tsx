@@ -77,6 +77,7 @@ const Login = () => {
   return (
     <SafeAreaView>
       <View
+  
         style={{ height: windowHeight }}
         paddingHorizontal="$8"
         display="flex"
@@ -84,6 +85,7 @@ const Login = () => {
         justifyContent="center"
       >
         <FormControl
+            $md-width={700}
           w="$full"
           p="$4"
           borderWidth="$1"

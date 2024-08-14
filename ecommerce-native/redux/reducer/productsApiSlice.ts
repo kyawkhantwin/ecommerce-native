@@ -41,13 +41,13 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: [{ type: "Product", id: "LIST" }],
     }),
     updateProduct: builder.mutation({
-      query: (product) => ({
-        url: `/products/${product.id}`,
+      query: ({id,detail}) => ({
+        url: `/products/${id}`,
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
         },
-        body: product,
+        body: detail,
       }),
       transformResponse: (res, meta, arg) => {
         productsAdapter.updateOne(initialState, { id: res.id, changes: res });

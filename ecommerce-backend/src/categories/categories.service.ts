@@ -61,6 +61,7 @@ export class CategoriesService {
   }
 
   async update(id: number, updateCategoryDto: Prisma.CategoryUpdateInput) {
+    const {name , image} = updateCategoryDto
     try {
       const category = await this.databaseService.category.findUnique({
         where: { id },
@@ -72,7 +73,7 @@ export class CategoriesService {
 
       return await this.databaseService.category.update({
         where: { id },
-        data: updateCategoryDto,
+        data: {name , image} ,
       });
     } catch (error) {
       throw new ConflictException('Category could not be updated');

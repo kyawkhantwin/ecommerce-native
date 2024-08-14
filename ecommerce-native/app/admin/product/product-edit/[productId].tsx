@@ -87,13 +87,15 @@ const EditProduct = () => {
   const handleSubmit = async () => {
     const updatedProduct = {
       id: productId,
-      title,
-      description,
-      price,
-      stock,
-      categoryId,
-      thumbnail,
-      images: [selectedImage],
+      detail: {
+        title,
+        description,
+        price,
+        stock,
+        categoryId,
+        thumbnail,
+        images: [selectedImage],
+      },
     };
 
     try {
@@ -241,7 +243,7 @@ const EditProduct = () => {
                         <Image
                           alt={product.title}
                           source={{ uri: selectedImage }}
-                          style={{ width: "100%", height: 200 }}
+                          style={{ width: 150, height: 150 }}
                         />
                       </Box>
                     )}

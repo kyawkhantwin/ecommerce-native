@@ -116,7 +116,7 @@ const CreateCategory = () => {
             <Box mt="$2">
               <Image
                 source={{ uri: image }}
-                style={{ width: "50%", height: 400 }}
+                style={{ width: 150, height: 200 }}
               />
             </Box>
           )}

@@ -54,6 +54,7 @@ const SignUp = () => {
   };
 
   const register = async () => {
+    try{
       await signUp({
         email,
         username,
@@ -64,6 +65,9 @@ const SignUp = () => {
       setUsername("");
       setPassword("");
       setLocation("");
+    }catch(e){
+      console.log(e)
+    }
     } 
 
 
@@ -77,6 +81,7 @@ const SignUp = () => {
         justifyContent="center"
       >
         <FormControl
+            $md-width={700}
           w="$full"
           p="$4"
           borderWidth="$1"

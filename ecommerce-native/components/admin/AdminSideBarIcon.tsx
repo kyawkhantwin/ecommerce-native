@@ -18,7 +18,7 @@ const AdminSideBarIcon = ({ icon, name, navigate }) => {
       alignItems="center"
       paddingHorizontal={20}
       marginRight={5}
-      $hover-bgColor="$trueGray100"
+      $hover-bgColor="$blue500"
       borderTopLeftRadius={0}
       borderBottomLeftRadius={0}
     >
