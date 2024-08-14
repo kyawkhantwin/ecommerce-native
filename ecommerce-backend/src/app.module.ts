@@ -11,6 +11,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { SearchModule } from './search/search.module';
 import { ReviewModule } from './review/review.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -24,7 +25,11 @@ import { ReviewModule } from './review/review.module';
     AuthModule,
     SearchModule,
     ReviewModule,
+    ConfigModule.forRoot({
+      isGlobal: true, // Makes the ConfigModule available globally
+    }),
   ],
+
   controllers: [AppController],
   providers: [AppService],
 })

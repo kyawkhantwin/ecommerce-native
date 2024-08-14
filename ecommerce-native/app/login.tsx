@@ -47,7 +47,7 @@ const Login = () => {
       router.replace("/");
     }
     if (isError) {
-      showToast("error", error.data.message);
+      showToast("error", error?.status);
       console.error("Login error:", error);
     }
   }, [isSuccess, isError, error]);

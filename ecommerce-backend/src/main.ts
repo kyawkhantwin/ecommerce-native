@@ -7,6 +7,6 @@ async function bootstrap() {
   app.enableCors();
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-  await app.listen(8080, '192.168.100.64');
+  await app.listen(8080);
 }
 bootstrap();
