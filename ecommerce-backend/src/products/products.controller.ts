@@ -20,6 +20,7 @@ import { AdminGard } from 'src/auth/admin-guard';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  @UseGuards(AdminGard)
   @Post()
   create(
     @Body(ValidationPipe)
@@ -38,6 +39,7 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
 
+  @UseGuards(AdminGard)
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -47,6 +49,7 @@ export class ProductsController {
     return this.productsService.update(id, updateProductDto);
   }
 
+  @UseGuards(AdminGard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productsService.remove(+id);

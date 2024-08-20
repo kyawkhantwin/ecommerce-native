@@ -7,12 +7,11 @@ import {
   HStack,
   Image,
   Text,
-  BadgeText,
   ButtonText,
   View,
 } from "@gluestack-ui/themed";
-import { Link, router, useNavigation } from "expo-router";
-import { Badge, Cog, Search, ShoppingCartIcon } from "lucide-react-native";
+import { Link, router } from "expo-router";
+import { Cog, ShoppingCartIcon } from "lucide-react-native";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -58,7 +57,7 @@ const NavBar = () => {
                 width={50}
                 height={50}
                 source={{
-                  uri: "https://cdn-icons-png.freepik.com/512/49/49075.png",
+                  uri: "/logo.png",
                 }}
               />
             </Link>

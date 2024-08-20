@@ -70,7 +70,6 @@ const CreateProduct = () => {
       );
 
       setSelectedImage(resize.uri);
-      console.log(resize.uri);
     }
   };
 

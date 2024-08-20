@@ -15,6 +15,8 @@ import { AdminGard } from 'src/auth/admin-guard';
 @Controller('categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
+
+  
   @UseGuards(AdminGard)
   @Post()
   create(@Body() createCategoryDto: Prisma.CategoryCreateInput) {

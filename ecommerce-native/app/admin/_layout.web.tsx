@@ -21,7 +21,7 @@ export default function TabLayout() {
     if (isMounted) {
       if (!currentUser?.admin) {
         showToast("error", "Unauthorized access");
-        // router.replace("");
+        router.replace("/");
       }
     }
   }, [isMounted, currentUser]);
