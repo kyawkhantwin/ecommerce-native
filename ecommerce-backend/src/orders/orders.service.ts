@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
@@ -6,7 +7,7 @@ export class OrdersService {
   constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createOrderDto: { cartId: number; userId: number }) {
-    // Find the cart and include its products, ensuring it belongs to the user
+    // Find the cart and include its products
     const cart = await this.databaseService.cart.findFirst({
       where: { id: createOrderDto.cartId, userId: createOrderDto.userId },
       include: { productCarts: true },
@@ -90,10 +91,6 @@ export class OrdersService {
       },
     };
 
-    if (latest !== undefined && latest > 0) {
-      query.take = latest;
-    }
-
     const orders = await this.databaseService.order.findMany(query);
 
     if (!orders || orders.length === 0) {
@@ -103,17 +100,17 @@ export class OrdersService {
     return orders;
   }
 
-  async findAllUserOrder(userId: number, status: string) {
-    let whereClause;
+  async findAllUserOrder(userId: number, status: string, latest?: number) {
+    let whereClause : {}
     if (status === 'pending') {
       whereClause = { status: 'PENDING', userId };
     } else if (status === 'done') {
       whereClause = { status: 'DONE', userId };
     } else {
-      throw new NotFoundException('Invalid status');
+      whereClause = {userId}
     }
 
-    const orders = await this.databaseService.order.findMany({
+    const query: Prisma.OrderFindManyArgs = {
       where: whereClause,
       include: {
         productOrders: {
@@ -123,7 +120,13 @@ export class OrdersService {
         },
         user: true,
       },
-    });
+    };
+
+    if (latest && latest > 0) {
+      query.take = latest;
+    }
+
+    const orders = await this.databaseService.order.findMany(query);
 
     if (!orders || orders.length === 0) {
       throw new NotFoundException('No orders found');

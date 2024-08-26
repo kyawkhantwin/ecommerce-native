@@ -72,7 +72,7 @@ export class CartsService {
     });
 
     if (!cart) {
-      throw new NotFoundException('Cart not found');
+      throw new NotFoundException('Cart Empty');
     }
 
     return cart;
@@ -108,7 +108,7 @@ export class CartsService {
     });
     if (!cart) {
       throw new NotFoundException(
-        'Cart not found or does not belong to the user',
+        'Cart Empty',
       );
     }
 

@@ -61,7 +61,7 @@ const NavBar = () => {
                 }}
               />
             </Link>
-            {currentUser?.admin && (
+            {currentUser?.isAdmin && (
               <Button
                 variant="outline"
                 size="md"

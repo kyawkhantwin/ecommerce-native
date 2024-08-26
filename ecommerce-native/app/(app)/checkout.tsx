@@ -13,10 +13,7 @@ import { router } from "expo-router";
 const Checkout: React.FC = () => {
   const currentUser = useSelector(selectCurrentUser);
   const {
-    isLoading,
-    isError,
     isSuccess,
-    error,
     data: userCartResult,
   } = useGetUserCartsQuery(currentUser.id);
 
@@ -24,7 +21,9 @@ const Checkout: React.FC = () => {
   const userCart = Object.values(userCartResult?.entities || {})[0];
 
   if (!userCart) {
-    router.replace("cart");
+    setTimeout(() => {
+      router.replace("cart");
+    }, 500);
   }
   return (
     <SafeAreaView>

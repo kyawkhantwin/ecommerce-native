@@ -23,7 +23,7 @@ interface OrderTabProps {
 }
 const OrdersTabSetting: React.FC<OrderTabProps> = ({ currentUser }) => {
   const { data: orderData, isSuccess } = useGetLatestOrderQuery({
-    userId: currentUser.id,
+    userId: currentUser?.id,
     latest: 2,
   });
   let orders: any[] = [];
@@ -64,7 +64,7 @@ const OrdersTabSetting: React.FC<OrderTabProps> = ({ currentUser }) => {
                 <VStack>
                   <Text>{new Date(order?.createdAt).toLocaleDateString()}</Text>
                   <Text size="lg" color="$yellow400">
-                    {totalSum(order.productOrders)} MMK
+                    {totalSum(order?.productOrders)} MMK
                   </Text>
                 </VStack>
               </Card>

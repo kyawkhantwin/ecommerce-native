@@ -106,13 +106,25 @@ model Transaction {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }
-model Admin {
-  id Int @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
- user      User    @relation(fields: [userId], references: [id])
-  userId    Int  @unique 
+
+
+// User Model
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  username      String   @unique
+  password      String   // Ideally hashed
+  location      String
+  image         String?
+  isAdmin       Boolean  @default(false) // New boolean field to indicate admin status
+  cart          Cart?
+  orders        Order[]
+  transactions  Transaction[]
+  UserProductReview UserProductReview[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
+
 
 model UserProductReview {
   id Int @id @default(autoincrement())
@@ -129,20 +141,4 @@ model UserProductReview {
 
 
 
-// User Model
-model User {
-  id         Int        @id @default(autoincrement())
-  email      String @unique
-  username   String @unique 
-  password   String
-  location   String
-  image   String?
-  cart       Cart?
-  orders     Order[]
-  transactions Transaction[]
-  admin   Admin?
-  UserProductReview UserProductReview[]
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  
-}
+

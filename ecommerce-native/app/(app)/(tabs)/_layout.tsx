@@ -1,10 +1,15 @@
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { selectCurrentUser } from "@/redux/auth/authSlice";
+import { useGetUserCartsQuery } from "@/redux/reducer/cartsApiSlice";
 import { Tabs } from "expo-router";
 import { useSelector } from "react-redux";
 
 export default function TabLayout() {
   const currentUser = useSelector(selectCurrentUser);
+  const { data: cart, isLoading } = useGetUserCartsQuery();
+
+  const badgeCount = cart?.items?.length || 0;
+
 
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: "blue", headerShown: false }}>
@@ -24,6 +29,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon size={28} name="cart" color={color} />
           ),
+          tabBarBadge: isLoading ? undefined : badgeCount || undefined, 
         }}
       />
       <Tabs.Screen
@@ -43,7 +49,7 @@ export default function TabLayout() {
             <TabBarIcon size={28} name="cog" color={color} />
           ),
 
-          href: !currentUser?.admin ? null : "/admin",
+          href: currentUser?.isAdmin ?  "/admin" : null,
         }}
       />
     </Tabs>

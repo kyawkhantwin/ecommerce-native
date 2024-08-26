@@ -30,7 +30,7 @@ const OrderDone: React.FC<OrderProps> = ({ currentUser }) => {
           orders.map((order) => <OrderCard key={order.id} order={order} />)}
       </HStack>
     </>
-  );
+  )
 };
 
 export default OrderDone;

@@ -29,16 +29,17 @@ export class OrdersController {
 
   @UseGuards(AdminGard)
   @Get()
-  findAll(@Query('status') status: string, @Query('latest') latest: string) {
-    return this.ordersService.findAll(status, +latest);
+  findAll(@Query('status') status: string) {
+    return this.ordersService.findAll(status);
   }
 
   @Get('user/:userId')
   findAllUserOrder(
     @Param('userId', ParseIntPipe) userId: number,
     @Query('status') status: string,
+     @Query('latest') latest: string
   ) {
-    return this.ordersService.findAllUserOrder(userId, status);
+  return this.ordersService.findAllUserOrder(userId, status,+latest);
   }
 
   @Get(':id')

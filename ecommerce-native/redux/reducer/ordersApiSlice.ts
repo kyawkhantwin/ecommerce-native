@@ -76,7 +76,7 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
         },
         body: order,
       }),
-      invalidatesTags: [{ type: "Order", id: "LIST" }],
+      invalidatesTags: [{ type: "Order", id: "LIST" } ,{ type: "Cart", id: "LIST" } ],
     }),
     deleteOrder: builder.mutation({
       query: (order) => ({

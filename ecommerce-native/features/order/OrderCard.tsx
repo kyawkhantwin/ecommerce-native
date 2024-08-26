@@ -55,9 +55,9 @@ const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
           <Text fontSize="$lg">Total:</Text>
           <Text fontSize="$lg">${totalSum(order.productOrders)}</Text>
         </HStack>
-        <Button variant="outline">
+        {/* <Button variant="outline">
           <ButtonText> Reorder</ButtonText>
-        </Button>
+        </Button> */}
       </VStack>
     </Card>
   );

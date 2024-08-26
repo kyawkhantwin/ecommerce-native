@@ -23,7 +23,6 @@ const Cart: React.FC = () => {
   } = useGetUserCartsQuery(currentUser.id);
 
   const userCart = Object.values(userCartResult?.entities || {})[0];
-  console.log(userCart);
   const totalPrice = (items: []) => {
     return items?.reduce((acc, item) => acc + item.price, 0);
   };
@@ -42,7 +41,7 @@ const Cart: React.FC = () => {
           {isError && (
             <>
               <PlaceHolder
-                message={`Error: ${
+                message={`${
                   error?.data?.message || "Failed to load cart"
                 }`}
               />

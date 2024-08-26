@@ -10,9 +10,6 @@ import * as bcrypt from 'bcrypt';
 import { Prisma } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 
-interface UserWithAdmin extends Prisma.UserCreateManyInput {
-  adminId?: number | null;
-}
 
 @Injectable()
 export class AuthService {
@@ -27,7 +24,7 @@ export class AuthService {
       where: {
         OR: [{ email: emailOrUsername }, { username: emailOrUsername }],
       },
-    })) as UserWithAdmin;
+    })) ;
 
     if (!user) {
       throw new NotFoundException("User or email doesn't exist");
@@ -40,22 +37,12 @@ export class AuthService {
     }
 
     // Generate JWT token
-    const payload: any = { userId: user.id };
-    const userData: any = {
-      username: user.username,
-      email: user.email,
-      location: user.location,
-      id: user.id,
-    };
-
-    if (user.adminId != null) {
-      payload.admin = true;
-      userData.admin = user.adminId;
-    }
+    const payload: any = { userId: user.id, isAdmin: user.isAdmin };
+    delete user.password;
 
     const token = this.jwtService.sign(payload);
 
-    return { user: userData, token };
+    return { user, token };
   }
 
   async signup(createSignUpDto: Prisma.UserCreateInput) {
@@ -76,12 +63,7 @@ export class AuthService {
       data: { ...createSignUpDto, password: hashedPassword },
     });
 
-    const userData = {
-      username: user.username,
-      email: user.email,
-      location: user.location,
-      id: user.id,
-    };
-    return userData;
+    delete user.password
+    return user;
   }
 }

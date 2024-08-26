@@ -13,7 +13,7 @@ export default function TabLayout() {
         $lg-marginHorizontal={100}
         $xl-marginHorizontal={200}
       >
-        <Slot />;
+        <Slot />
       </View>
     </View>
   );

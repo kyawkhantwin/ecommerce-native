@@ -110,7 +110,7 @@ const UserTabsSetting: React.FC = () => {
         <Text flex={1}>Username</Text>
 
         <HStack alignItems="center">
-          <Text>{currentUser.username}</Text>
+          <Text>{currentUser?.username}</Text>
           <Button variant="link" onPress={() => handleShowDialog("Username")}>
             <ButtonIcon as={PencilLine} marginLeft={5} $md-marginLeft={10} />
           </Button>
@@ -122,7 +122,7 @@ const UserTabsSetting: React.FC = () => {
         <Text flex={1}>Email</Text>
 
         <HStack alignItems="center">
-          <Text>{currentUser.email}</Text>
+          <Text>{currentUser?.email}</Text>
           <Button variant="link" onPress={() => handleShowDialog("Email")}>
             <ButtonIcon as={PencilLine} marginLeft={5} $md-marginLeft={10} />
           </Button>
@@ -133,7 +133,7 @@ const UserTabsSetting: React.FC = () => {
 
         <Text flex={1}>Location</Text>
         <HStack alignItems="center">
-          <Text>{currentUser.location.substring(0, 20)}...</Text>
+          <Text>{currentUser?.location.substring(0, 20)}...</Text>
           <Button variant="link" onPress={() => handleShowDialog("Location")}>
             <ButtonIcon as={PencilLine} marginLeft={5} $md-marginLeft={10} />
           </Button>

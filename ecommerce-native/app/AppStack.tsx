@@ -10,8 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 const AppStack = () => {
   const dispatch = useDispatch();
   const [isReady, setIsReady] = useState(false);
-  const checkUser = useSelector(selectCurrentUser);
+  const currentUser = useSelector(selectCurrentUser);
   const authStatus = useSelector(selectAuthStatus);
+
 
   useEffect(() => {
     const fetchAuthData = async () => {
@@ -28,11 +29,11 @@ const AppStack = () => {
 
   useEffect(() => {
     if (isReady) {
-      if (!checkUser) {
+      if (!currentUser) {
         router.replace("/login");
       }
     }
-  }, [checkUser, isReady]);
+  }, [currentUser, isReady]);
 
   if (!isReady) {
     return null; // Or a loading indicator
@@ -44,8 +45,8 @@ const AppStack = () => {
         headerShown: false,
       }}
     >
-      {checkUser ? (
-        checkUser && <Stack.Screen name="(app)" />
+      {currentUser ? (
+         <Stack.Screen name="(app)" />
       ) : (
         <>
           <Stack.Screen name="login" />
@@ -53,8 +54,9 @@ const AppStack = () => {
         </>
       )}
 
-      <Stack.Screen name="admin" />
+      {currentUser?.isAdmin && <Stack.Screen name="admin" />}
 
+      
       <Stack.Screen name="+not-found" />
     </Stack>
   );

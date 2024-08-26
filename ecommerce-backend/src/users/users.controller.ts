@@ -21,6 +21,7 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+ 
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,

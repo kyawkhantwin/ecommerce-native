@@ -75,4 +75,5 @@ export class UsersService {
       throw new InternalServerErrorException('Could not delete the user');
     }
   }
+
 }
