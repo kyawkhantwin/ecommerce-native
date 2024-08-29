@@ -27,12 +27,12 @@ const AdminNavBar = () => {
           paddingVertical={10}
         >
           <HStack flex={1} alignItems="center" space="md">
-            <Link href="/">
-              <Image
+            <Link href="/admin">
+            <Image
                 width={50}
                 height={50}
                 source={{
-                  uri: "https://cdn-icons-png.freepik.com/512/49/49075.png",
+                  uri: "/logo.png",
                 }}
               />
             </Link>

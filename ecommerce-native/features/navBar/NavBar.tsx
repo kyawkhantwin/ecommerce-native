@@ -19,7 +19,13 @@ const NavBar = () => {
           alignItems="center"
         >
           <Link href="/">
-            <Text>Home</Text>
+          <Image
+                width={50}
+                height={50}
+                source={{
+                  uri: "/logo.png",
+                }}
+              />
           </Link>
           <HStack>
             <SearchBar />
