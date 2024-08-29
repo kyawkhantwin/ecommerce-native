@@ -46,7 +46,7 @@ export default function TabLayout() {
         options={{
           title: "Admin",
           tabBarIcon: ({ color }) => (
-            <TabBarIcon size={28} name="cog" color={color} />
+            <TabBarIcon size={28} name="person-outline" color={color} />
           ),
 
           href: currentUser?.isAdmin ?  "/admin" : null,

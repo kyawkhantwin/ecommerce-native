@@ -1,8 +1,8 @@
-import { View, Text, Dimensions } from "react-native";
 import React from "react";
 import { LineChart } from "react-native-chart-kit";
 import { useGetOrdersQuery } from "@/redux/reducer/ordersApiSlice";
-import { Heading } from "@gluestack-ui/themed";
+import { Heading, View, Text } from "@gluestack-ui/themed";
+import { useMediaQuery } from "react-responsive";
 
 const OrderChart = () => {
   const {
@@ -13,15 +13,34 @@ const OrderChart = () => {
   } = useGetOrdersQuery();
 
   const chartConfig = {
-    backgroundGradientFrom: "#1E2923",
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: "#08130D",
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
+    backgroundGradientFrom: "#FF6F00",
+    backgroundGradientFromOpacity: 1,
+    backgroundGradientTo: "#FFAB00",
+    backgroundGradientToOpacity: 1,
+    color: () => `#000000`,
+    strokeWidth: 2,
     barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
+    useShadowColorFromDataset: false,
+    propsForBackgroundLines: {
+      stroke: '#FFFFFF',
+    },
+    propsForHorizontalLabels: {
+      fontSize: 14,
+      fontFamily: 'Arial',
+      fill: '#FFFFFF',
+    },
+    propsForVerticalLabels: {
+      fontSize: 14,
+      fontFamily: 'Arial',
+      fill: '#FFFFFF',
+    },
+    propsForDots: {
+      r: "6",
+      strokeWidth: "2",
+      stroke: "#000000",
+    },
   };
+  
 
   const getLastFiveMonths = () => {
     const months = [];
@@ -68,23 +87,35 @@ const OrderChart = () => {
     ? getChartData(Object.values(orderData.entities))
     : { labels: [], datasets: [{ data: [] }] };
 
+  // Media queries
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 600px)' });
+  const isLargeScreen = useMediaQuery({ query: "(min-width: 1200px)" });
+
+
   return (
-    <View>
+    <View
+      width={  isLargeScreen ? 500 : 380}
+      flex={1}
+    >
       <Heading>Last 6 Months Orders</Heading>
-      <LineChart
-        data={chartData}
-        width={500}
-        height={220}
-        yAxisLabel="$"
-        yAxisSuffix="k"
-        yAxisInterval={1}
-        chartConfig={chartConfig}
-        bezier
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
+      {isError && <Text>Error loading orders</Text>}
+      {isLoading && <Text>Loading...</Text>}
+      {isSuccess && (
+        <LineChart
+          data={chartData}
+          width={  isLargeScreen ? 500 : 380} 
+          height={220}
+          yAxisLabel="$"
+          yAxisSuffix="k"
+          yAxisInterval={1}
+          chartConfig={chartConfig}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+          }}
+        />
+      )}
     </View>
   );
 };

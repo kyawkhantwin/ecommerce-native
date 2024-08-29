@@ -53,7 +53,6 @@ const CreateCategory = () => {
       );
 
       setImage(resize.uri);
-      console.log(resize.uri);
     }
   };
 

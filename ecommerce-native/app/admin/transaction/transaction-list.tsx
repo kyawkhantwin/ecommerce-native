@@ -26,8 +26,9 @@ const Transaction = () => {
   const transactions = useSelector(selectAllTransactions);
 
   const handleDetails = (id) => {
+
     navigation.navigate("transaction-detail/[transactionId]", {
-      transctionsId: id,
+      transactionId: id,
     });
   };
 
@@ -82,11 +83,7 @@ const Transaction = () => {
                   </VStack>
                   <Text flex={1}>{transaction.user.username}</Text>
                   <View flex={1}>
-                    {transaction.order.productOrders?.map((order) => (
-                      <Text key={order.product.price}>
-                        {order.product.title} x {order.quantity}
-                      </Text>
-                    ))}
+                    {transaction.order?.productOrders?.length}
                   </View>
                   <Text flex={1}>{transaction.total}</Text>
                   <Box flexDirection="row" alignItems="center" flex={1}>

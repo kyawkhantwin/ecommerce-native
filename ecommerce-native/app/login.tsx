@@ -21,18 +21,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Divider } from "@gluestack-ui/themed";
 
 import { Dimensions } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useShowToast from "@/components/toast/ShowToast";
 import {
-  loadAuthData,
-  selectAuthStatus,
-  selectCurrentUser,
   setCredentials,
 } from "@/redux/auth/authSlice";
 import { useLoginMutation } from "@/redux/auth/authApiSlice";
 import { router } from "expo-router";
+import { useAuth } from "@/context/AuthContext";
 
 const Login = () => {
+  const {currentUser} = useAuth()
   const showToast = useShowToast();
   const dispatch = useDispatch();
 
@@ -43,12 +42,11 @@ const Login = () => {
   const [login, { isSuccess, isError, error, isLoading }] = useLoginMutation();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || currentUser) {
       router.replace("/");
     }
     if (isError) {
-      showToast("error", error?.status);
-      console.error("Login error:", error);
+      showToast('error',"Login error");
     }
   }, [isSuccess, isError, error]);
 
@@ -70,7 +68,8 @@ const Login = () => {
       const { user, token } = Object.values(userData.entities)[0];
       dispatch(setCredentials({ user, token }));
     } catch (error) {
-      console.error("Failed to login:", error);
+      
+      showToast('error',error?.message);
     }
   };
 

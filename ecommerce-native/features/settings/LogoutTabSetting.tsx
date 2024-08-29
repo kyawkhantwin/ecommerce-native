@@ -20,7 +20,7 @@ const LogoutTabSetting: React.FC = () => {
   const handleLogout = () => {
     dispatch(logout());
     showToast("warning", "Logout success");
-    router.replace("login");
+    router.replace("/login");
   };
   return (
     <VStack space="md">

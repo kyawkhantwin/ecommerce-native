@@ -7,6 +7,7 @@ import { Divider, HStack, View } from "@gluestack-ui/themed";
 import { Slot, router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { ScrollView } from "react-native";
 
 export default function TabLayout() {
   const currentUser = useSelector(selectCurrentUser);
@@ -19,7 +20,7 @@ export default function TabLayout() {
 
   useEffect(() => {
     if (isMounted) {
-      if (!currentUser?.admin) {
+      if (!currentUser?.isAdmin) {
         showToast("error", "Unauthorized access");
         router.replace("/");
       }
@@ -31,11 +32,21 @@ export default function TabLayout() {
   }
 
   return (
-    <View position="relative" height="$full" flex={1}>
+    <View flex={1} position="relative">
       <AdminNavBar />
-      <HStack space="2xl" height="$full">
+      <HStack flex={1} space="2xl">
         <AdminSideBar />
-        <Slot />
+        <View
+          flex={1}
+          w="$full"
+          $md-w={"$4/5"}
+          p={10}
+          $md-paddingRight={20}
+        >
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            <Slot />
+          </ScrollView>
+        </View>
       </HStack>
     </View>
   );

@@ -66,7 +66,7 @@ const SignUp = () => {
       setPassword("");
       setLocation("");
     }catch(e){
-      console.log(e)
+      showToast(e)
     }
     } 
 

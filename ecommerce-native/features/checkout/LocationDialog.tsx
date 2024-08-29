@@ -56,7 +56,6 @@ const LocationDialog: React.FC<LocationDialogProps> = ({
     }
     if (isError) {
       showToast("error", "Failed, Location Changed");
-      console.log(error);
     }
   }, [isSuccess, isError]);
 

@@ -43,7 +43,7 @@ const AdminNavBar = () => {
               action="positive"
               alignItems="center"
               justifyContent="center"
-              onPress={() => router.push("")}
+              onPress={() => router.push("/")}
             >
               <ButtonText>Switch To User</ButtonText>
             </Button>

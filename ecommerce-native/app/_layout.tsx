@@ -12,9 +12,10 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { Provider } from "react-redux";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { useEffect } from "react";
-import AppStack from "./AppStack";
+import { Stack } from "expo-router";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { AuthProvider } from "@/context/AuthContext";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -35,13 +36,28 @@ export default function RootLayout() {
 
   return (
     <Provider store={store}>
+      <AuthProvider>
       <GluestackUIProvider config={config} colorMode={colorScheme}>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
-          <AppStack />
+          <SafeAreaProvider>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+              }}
+            >
+              <Stack.Screen name="admin" />
+
+              <Stack.Screen name="(app)" />
+              <Stack.Screen name="login" />
+              <Stack.Screen name="signup" />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </SafeAreaProvider>
         </ThemeProvider>
       </GluestackUIProvider>
+      </AuthProvider>
     </Provider>
   );
 }

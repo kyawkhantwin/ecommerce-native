@@ -19,6 +19,7 @@ import ProductReview from "@/features/detail/ProductReview";
 import HeaderWithGoback from "@/components/HeaderWithGoback";
 import { useGlobalSearchParams, useLocalSearchParams } from "expo-router";
 import NavBar from "@/features/navBar/NavBar";
+import useShowToast from "@/components/toast/ShowToast";
 
 // Define the Product type
 type product = {
@@ -31,6 +32,7 @@ type product = {
 
 const DetailProduct = function () {
   const local = useLocalSearchParams();
+  const showToast = useShowToast();
 
   const { isLoading, isError, error } = useGetProductsQuery();
   const selectProduct: product = useSelector((state) =>
@@ -40,7 +42,7 @@ const DetailProduct = function () {
   if (isLoading) {
     return <Spinner size="large" />;
   } else if (isError) {
-    console.log(error);
+    showToast(error);
   }
 
   return (

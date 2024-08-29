@@ -13,7 +13,6 @@ const AppStack = () => {
   const currentUser = useSelector(selectCurrentUser);
   const authStatus = useSelector(selectAuthStatus);
 
-
   useEffect(() => {
     const fetchAuthData = async () => {
       await dispatch(loadAuthData()).unwrap();
@@ -35,9 +34,7 @@ const AppStack = () => {
     }
   }, [currentUser, isReady]);
 
-  if (!isReady) {
-    return null; // Or a loading indicator
-  }
+  
 
   return (
     <Stack
@@ -46,17 +43,16 @@ const AppStack = () => {
       }}
     >
       {currentUser ? (
-         <Stack.Screen name="(app)" />
+        <>
+          <Stack.Screen name="(app)" />
+          {currentUser.isAdmin && <Stack.Screen name="admin" />}
+        </>
       ) : (
         <>
           <Stack.Screen name="login" />
           <Stack.Screen name="signup" />
         </>
       )}
-
-      {currentUser?.isAdmin && <Stack.Screen name="admin" />}
-
-      
       <Stack.Screen name="+not-found" />
     </Stack>
   );

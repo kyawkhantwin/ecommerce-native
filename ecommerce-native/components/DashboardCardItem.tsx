@@ -1,17 +1,26 @@
 import React from "react";
-import { Card, HStack, Icon, Text } from "@gluestack-ui/themed";
+import { Card, Icon, Text, View } from "@gluestack-ui/themed";
 import { VStack } from "@gluestack-ui/themed";
 
 const DashboardCardItem = ({ name, number, icon }) => {
   return (
-    <Card alignItems="center" bgColor="$primary500">
-      <HStack space="lg" justifyContent="space-around" alignItems="center" >
-        <Icon as={icon} size={43} color="$white"/>
-        <VStack space="md">
+    <Card alignItems="center" $sm-width={200} $md-w={200} bgColor="$primary500">
+      <View
+        alignItems="center"
+        display="flex"
+        flexDirection="row"
+        gap="$2"
+        justifyContent="space-around"
+      >
+        <Icon as={icon} size={30}  color="$white" />
+        <VStack space="md" 
+        alignItems="center"
+        jsutifyContent="center"
+        >
           <Text color="$white">{name}</Text>
           <Text color="$white">{number}</Text>
         </VStack>
-      </HStack>
+      </View>
     </Card>
   );
 };

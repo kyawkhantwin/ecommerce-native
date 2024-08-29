@@ -27,7 +27,6 @@ const extendedApiSlice = apiSlice.injectEndpoints({
       query: (transactionId) => `/transactions/${transactionId}`,
       transformResponse: (responseData) => {
         const data = [responseData] || [];
-        console.log(responseData);
         return transactionsAdapter.setAll(initialState, data);
       },
       providesTags: (result, error, arg) => {

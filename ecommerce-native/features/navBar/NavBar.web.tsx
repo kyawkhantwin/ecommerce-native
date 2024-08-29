@@ -26,7 +26,6 @@ const NavBar = () => {
     ? Object.values(shoppingCartData.entities)
     : [];
 
-  console.log(shoppingCart);
 
   return (
     <div

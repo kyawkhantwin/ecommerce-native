@@ -2,7 +2,9 @@ import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import apiSlice from "../api/apiSlice";
 
 const usersAdapter = createEntityAdapter({
-  selectId: (user) => user.id, // Adjust to user.id if applicable
+  selectId: (user) => {
+    return user.id
+  }, 
 });
 
 const initialState = usersAdapter.getInitialState({}); // Initialize with usersAdapter

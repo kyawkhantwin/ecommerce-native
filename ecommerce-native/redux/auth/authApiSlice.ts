@@ -2,7 +2,9 @@ import { createEntityAdapter } from "@reduxjs/toolkit";
 import apiSlice from "../api/apiSlice";
 
 const authAdapter = createEntityAdapter({
-  selectId: (user) => user.id,
+  selectId: (entity) => {
+    return entity.user.id;
+  },
 });
 const initialState = authAdapter.getInitialState({});
 const authApiExtended = apiSlice.injectEndpoints({

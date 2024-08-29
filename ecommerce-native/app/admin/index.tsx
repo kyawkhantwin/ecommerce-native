@@ -3,8 +3,7 @@ import {
   ScrollView,
   VStack,
   Heading,
-  Text,
-  HStack,
+  View,
 } from "@gluestack-ui/themed";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGetOrdersQuery } from "@/redux/reducer/ordersApiSlice";
@@ -41,11 +40,13 @@ const Dashboard: React.FC = () => {
   const pendingOrders = orders.filter((order) => order.status === "PENDING");
   const completedOrders = orders.filter((order) => order.status === "DONE");
 
-  const deviceHeight = Dimensions.get("window").height;
+  const { width: deviceWidth } = Dimensions.get("window");
+  const isSmallDevice = deviceWidth < 600; // Consider it a small device if width is less than 600px
+
   return (
     <SafeAreaView>
-      <ScrollView marginHorizontal="$5" minHeight={deviceHeight}>
-        <VStack space="lg">
+      <ScrollView>
+        <VStack space="lg" alignItems="center">
           <Heading>E-Commerce Dashboard</Heading>
           <CardContainer
             totalProducts={products.length}
@@ -54,12 +55,25 @@ const Dashboard: React.FC = () => {
             pendingOrders={pendingOrders.length}
             completedOrders={completedOrders.length}
           />
-          <HStack marginTop={10}>
-            <CategoryPie />
-            <OrderChart />
-          </HStack>
-
-          <UserBar />
+          <View
+            display="flex"
+            width="100%"
+            padding="$1"
+            flexWrap="wrap"
+            flexDirection={isSmallDevice ? "column" : "row"} // Adjust direction based on device size
+            justifyContent="space-between"
+            gap="$1"
+          >
+            <View flex={1} minWidth={isSmallDevice ? "100%" : 300} maxWidth={800}>
+              <CategoryPie />
+            </View>
+            <View flex={1} minWidth={isSmallDevice ? "100%" : 300} maxWidth={800}>
+              <OrderChart />
+            </View>
+          </View>
+          <View width="100%" padding="$1">
+            <UserBar />
+          </View>
         </VStack>
       </ScrollView>
     </SafeAreaView>

@@ -74,7 +74,6 @@ const selectUserCartsResult = extendedApiSlice.endpoints.getUserCarts.select();
 const selectCartsData = createSelector(
   selectUserCartsResult,
   (UserCartsResult) => {
-    console.log("UserCartsResult.data || null", UserCartsResult);
     return UserCartsResult.data
   }
 );

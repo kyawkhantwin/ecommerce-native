@@ -29,7 +29,6 @@ const ThemeTabSetting: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log(colorScheme);
   }, [colorScheme]);
 
   return (
@@ -38,7 +37,6 @@ const ThemeTabSetting: React.FC = () => {
       <RadioGroup
         value={colorScheme || undefined}
         onChange={(value) => {
-          console.log(value);
           Appearance.setColorScheme(value);
         }}
       >

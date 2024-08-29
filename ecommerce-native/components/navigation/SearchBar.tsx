@@ -28,11 +28,16 @@ const SearchBar = () => {
       justifyContent="center"
       width={240}
       height={35}
+       $light-color="white"
+      $dark-color="black"
+
       $lg-height={40}
       $lg-width={500}
       marginHorizontal={0}
     >
       <InputField
+        $light-color="white"
+      $dark-color="black"
         onChangeText={(text) => setProductName(text)}
         placeholder="Search Anything You Want"
       />

@@ -1,7 +1,7 @@
 import React from 'react';
 import DashboardCardItem from '@/components/DashboardCardItem';
 import { Coins, Package, Package2, User, Watch } from 'lucide-react-native';
-import { HStack } from '@gluestack-ui/themed';
+import { HStack, View } from '@gluestack-ui/themed';
 
 interface CardContainerProps {
   totalProducts: number;
@@ -18,7 +18,8 @@ const CardContainer: React.FC<CardContainerProps> = ({
   pendingOrders,
   completedOrders,
 }) => (
-  <HStack space="lg">
+  <View display="flex" width={"100%"} 
+  padding="$1" flexWrap='wrap' flexDirection='row' gap="$1"  >
     <DashboardCardItem
       name={"Total Product"}
       number={totalProducts}
@@ -44,7 +45,7 @@ const CardContainer: React.FC<CardContainerProps> = ({
       number={completedOrders}
       icon={Package2}
     />
-  </HStack>
+  </View >
 );
 
 export default CardContainer;

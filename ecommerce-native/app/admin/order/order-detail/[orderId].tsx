@@ -92,17 +92,17 @@ const OrderDetail = () => {
             {isLoading && <CenterSpinner />}
             {isSuccess && (
               <>
-                <Box
-                  key={order.id}
-                  flexDirection="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  borderBottomWidth={1}
-                  borderBottomColor="#eee"
-                  py="$2"
-                >
+              
                   {order.productOrders.map((productOrder) => (
-                    <>
+                    <Box
+                    key={order.id}
+                    flexDirection="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    borderBottomWidth={1}
+                    borderBottomColor="#eee"
+                    py="$2"
+                  >
                       <Image
                         source={{ uri: productOrder.product.images[0] }}
                         style={{ flex: 1, resizeMode: "cover" }}
@@ -114,7 +114,7 @@ const OrderDetail = () => {
                       <Text key={productOrder.product.id} flex={1}>
                         {productOrder.product.price}
                       </Text>
-                    </>
+                </Box>
                   ))}
 
                   {/* <Box flexDirection="row" alignItems="center" flex={1}>
@@ -132,7 +132,6 @@ const OrderDetail = () => {
                     <ButtonIcon as={Check} />
                   </Button>
                 </Box> */}
-                </Box>
 
                 <HStack paddingRight={20} marginTop={10}>
                   <Text flex={1} fontSize="$lg" fontWeight="bold">

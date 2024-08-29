@@ -93,7 +93,7 @@ const Order = () => {
               <Text flex={1} fontWeight="bold">
                 User
               </Text>
-              <Text flex={1} fontWeight="bold">
+              <Text flex={2} fontWeight="bold">
                 Product
               </Text>
               <Text flex={1} fontWeight="bold">
@@ -115,6 +115,7 @@ const Order = () => {
                   borderBottomColor="#eee"
                   py="$2"
                 >
+                  {/* Order Date and Time */}
                   <VStack flex={1}>
                     <Text>
                       {new Date(order.createdAt).toLocaleDateString()}
@@ -123,46 +124,49 @@ const Order = () => {
                       {new Date(order.createdAt).toLocaleTimeString()}
                     </Text>
                   </VStack>
+
+                  {/* User Information */}
                   <Text flex={1}>{order.user.username}</Text>
-                  {order.productOrders.map((productOrder) => (
-                    <>
-                      <View key={productOrder.orderId} flex={1}>
-                        <Text key={productOrder.product.id} flex={1}>
-                          {productOrder.product.title} x {productOrder.quantity}
-                        </Text>
-                      </View>
-                      <Text flex={1}>Total: {productOrder.price}</Text>
-                      <Box flexDirection="row" alignItems="center" flex={1}>
-                        <Button
-                          p="$3"
-                          variant="link"
-                          onPress={() => handleDetails(order.id)}
-                        >
-                          <ButtonIcon as={Info} />
-                        </Button>
-                        <Button
-                          p="$3"
-                          onPress={() =>
-                            handleTransaction(
-                              order.id,
-                              order.userId,
-                              productOrder.price
-                            )
-                          }
-                          variant="link"
-                        >
-                          <ButtonIcon
-                            as={
-                              isTransactionLoading &&
-                              processingOrderId === order.id
-                                ? Spinner
-                                : Check
-                            }
-                          />
-                        </Button>
-                      </Box>
-                    </>
-                  ))}
+
+                  {/* Product Orders */}
+                  <VStack flex={2}>
+                    {order.productOrders.length}
+                  </VStack>
+
+                  {/* Total Amount */}
+                  <Text flex={1}>
+                    Total: {order.productOrders.reduce((total, productOrder) => total + productOrder.price, 0)}
+                  </Text>
+
+                  {/* Actions: Details and Checkout */}
+                  <Box flexDirection="row" alignItems="center" flex={1}>
+                    <Button
+                      p="$3"
+                      variant="link"
+                      onPress={() => handleDetails(order.id)}
+                    >
+                      <ButtonIcon as={Info} />
+                    </Button>
+                    <Button
+                      p="$3"
+                      onPress={() =>
+                        handleTransaction(
+                          order.id,
+                          order.userId,
+                          order.productOrders.reduce((total, productOrder) => total + productOrder.price, 0)
+                        )
+                      }
+                      variant="link"
+                    >
+                      <ButtonIcon
+                        as={
+                          isTransactionLoading && processingOrderId === order.id
+                            ? Spinner
+                            : Check
+                        }
+                      />
+                    </Button>
+                  </Box>
                 </Box>
               ))}
             {isOrdersError && (

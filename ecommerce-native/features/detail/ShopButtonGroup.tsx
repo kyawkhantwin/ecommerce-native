@@ -43,7 +43,6 @@ const ShopButtonGroup: React.FC<ShopButtonGroupProps> = ({
     }
 
     if (isError) {
-      console.log(error);
       showToast("error", error?.data?.message || "Cart created fail");
     }
   }, [isSuccess, isError, error]);

@@ -1,4 +1,6 @@
 import AdminSideBarIcon from "@/components/admin/AdminSideBarIcon";
+import useShowToast from "@/components/toast/ShowToast";
+import { logout } from "@/redux/auth/authSlice";
 import {
   Button,
   ButtonIcon,
@@ -6,6 +8,7 @@ import {
   Heading,
   View,
 } from "@gluestack-ui/themed";
+import { router } from "expo-router";
 import { Link } from "expo-router";
 import {
   BarChart,
@@ -17,15 +20,23 @@ import {
 } from "lucide-react-native";
 import React from "react";
 import { Dimensions } from "react-native";
+import { useDispatch } from "react-redux";
 
 const AdminSideBar = () => {
+  const dispatch = useDispatch();
+  const showToast = useShowToast();
+  const handleLogout = () => {
+    dispatch(logout());
+    showToast("warning", "Logout success");
+    router.replace("/login");
+  };
   const windowHeight = Dimensions.get("window").height;
   return (
     <View
       w="$1/5"
+      paddingTop={50}
       height={windowHeight}
       bgColor="$trueGray200"
-      paddingTop={15}
       display="none"
       $md-display="flex"
     >
@@ -48,7 +59,12 @@ const AdminSideBar = () => {
         navigate={"transaction"}
       />
 
-      <Button marginTop={200} variant="outline" action="negative">
+      <Button
+        onPress={handleLogout}
+        marginTop={200}
+        variant="outline"
+        action="negative"
+      >
         <ButtonIcon as={LogOut} color="$negative" marginRight={10} />
         <ButtonText>Logout</ButtonText>
       </Button>

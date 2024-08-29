@@ -11,6 +11,7 @@ const AdminLayout = () => {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="index"
     >
       <Tabs.Screen
         name="index"

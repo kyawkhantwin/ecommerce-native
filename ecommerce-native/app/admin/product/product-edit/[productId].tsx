@@ -66,9 +66,9 @@ const EditProduct = () => {
 
     await launchImageLibrary(options, (response) => {
       if (response.didCancel) {
-        console.log("User cancelled image picker");
+        showToast(" Cancelled image picker");
       } else if (response.errorMessage) {
-        console.log("ImagePicker Error: ", response.errorMessage);
+        showToast("ImagePicker Error: ", response.errorMessage);
       } else {
         setSelectedImage(response.assets[0].uri);
       }

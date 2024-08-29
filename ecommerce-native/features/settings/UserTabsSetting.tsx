@@ -63,7 +63,6 @@ const UserTabsSetting: React.FC = () => {
       showToast("success", "Updated User Success");
     }
     if (isError) {
-      console.log("uploaded photo error", error);
       showToast("error", error + "occur");
     }
     dispatch(updateAuthUser({ image: imageUri }));
@@ -87,7 +86,7 @@ const UserTabsSetting: React.FC = () => {
         <AvatarImage
           alt="userAvatar"
           source={{
-            uri: userImage,
+            uri: userImage || "/placeholder-image.jpg",
           }}
         />
 
