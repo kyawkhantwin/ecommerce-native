@@ -86,7 +86,7 @@ const UserTabsSetting: React.FC = () => {
         <AvatarImage
           alt="userAvatar"
           source={{
-            uri: userImage || "/placeholder-image.jpg",
+         uri: userImage || ''
           }}
         />
 

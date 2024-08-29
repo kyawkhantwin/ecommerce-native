@@ -58,6 +58,8 @@ const NavBar = () => {
                 source={{
                   uri: "/logo.png",
                 }}
+                alt="ecommero-logo"
+
               />
             </Link>
             {currentUser?.isAdmin && (

@@ -1,33 +1,36 @@
-import SearchBar from "@/components/navigation/SearchBar";
-import { View } from "@gluestack-ui/themed";
-import { Text } from "@gluestack-ui/themed";
-import { Button, ButtonIcon, HStack, Image } from "@gluestack-ui/themed";
-import { Link, router, useNavigation } from "expo-router";
-import { Cog, ShoppingCartIcon } from "lucide-react-native";
-import React from "react";
+import React from 'react';
+import { View, HStack, Image } from '@gluestack-ui/themed';
+import { Link } from 'expo-router';
+import SearchBar from '@/components/navigation/SearchBar';
+import logo from '@/assets/images/logo.png'; // Adjust path based on your project structure
 
 const NavBar = () => {
   return (
     <View>
-      <View $dark-bgColor={"rgb(242, 242, 242)"} $light-bgColor={"rgb(1, 1, 1)"}>
+      <View
+        $light-bgColor="rgb(1, 1, 1)"
+        $dark-bgColor="rgb(242, 242, 242)"
+      >
         <HStack
-          paddingVertical={10}
-          paddingHorizontal={20}
           space="lg"
           display="flex"
           justifyContent="space-between"
           alignItems="center"
+          paddingHorizontal={20}
+          paddingVertical={0} 
         >
-          <Link href="/">
-          <Image
-                width={50}
-                height={50}
-                source={{
-                  uri: "/logo.png",
-                }}
-              />
+          <Link 
+           style={{ display: 'flex' ,height:60}} 
+          href="/">
+            <Image
+              width={40} 
+              height={40} 
+              source={logo}
+              alt="ecommerce-logo"
+              zIndex={99}
+            />
           </Link>
-          <HStack>
+          <HStack paddingVertical={10}>
             <SearchBar />
           </HStack>
         </HStack>

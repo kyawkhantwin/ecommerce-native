@@ -34,6 +34,8 @@ const AdminNavBar = () => {
                 source={{
                   uri: "/logo.png",
                 }}
+                alt="ecommero-logo"
+
               />
             </Link>
             <View flex={1}></View>
