@@ -4,7 +4,6 @@ import {
   VStack,
   HStack,
   Text,
-  Pressable,
   Button,
   ButtonIcon,
   Icon,
@@ -38,7 +37,7 @@ const UserTabsSetting: React.FC = () => {
       quality: 1,
     });
 
-    if (!result.canceled) {
+    if (!result.canceled && result.assets && result.assets.length > 0) {
       const selectedImageUri = result.assets[0].uri;
 
       const resizedImage = await manipulateAsync(
@@ -86,7 +85,7 @@ const UserTabsSetting: React.FC = () => {
         <AvatarImage
           alt="userAvatar"
           source={{
-         uri: userImage || ''
+            uri: userImage && typeof userImage === "string" ? userImage : "https://via.placeholder.com/400",
           }}
         />
 
