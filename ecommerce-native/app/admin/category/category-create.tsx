@@ -21,6 +21,7 @@ import useShowToast from "@/components/toast/ShowToast";
 import { useNavigation } from "expo-router";
 import { SaveFormat, manipulateAsync } from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
+import { Alert } from "react-native";
 
 const CreateCategory = () => {
   const navigation = useNavigation();
@@ -57,15 +58,17 @@ const CreateCategory = () => {
   };
 
   const handleSubmit = async () => {
-    await createCategory({ name, image });
+    if (name || image) {
+      await createCategory({ name, image });
+    } else {
+    }
   };
   useEffect(() => {
     if (isSuccess) {
-      showToast("success", "Create Category Success");
       navigation.navigate("category-list");
     }
     if (isError) {
-      showToast("error", error?.data?.message || "Create Category Fail");
+      Alert.alert("error", error?.data?.message || "Create Category Fail");
     }
   }, [isSuccess, isError, error]);
 

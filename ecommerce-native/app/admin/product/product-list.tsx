@@ -26,7 +26,7 @@ import { useNavigation } from "expo-router";
 
 const Product = () => {
   const navigation = useNavigation();
-  const showToast = useShowToast();
+  const showToast = useShowToast(); 
   const [deletingProductId, setDeletingProductId] = useState(null);
 
   const {
@@ -59,13 +59,11 @@ const Product = () => {
   };
 
   useEffect(() => {
-    if (isDeleteSuccess) {
-      showToast("warning", "Delete Product Success");
-    }
     if (isDeleteError) {
       showToast("error", deleteError?.data?.message || "Delete Product Fail");
     }
-  }, [isDeleteSuccess, isDeleteError, deleteError]);
+  }, [isDeleteError, deleteError]);
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

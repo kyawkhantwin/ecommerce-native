@@ -11,6 +11,7 @@ import { CreditCard, ShoppingCart } from "lucide-react-native";
 import { selectCurrentUser } from "@/redux/auth/authSlice";
 import { useCreateCartMutation } from "@/redux/reducer/cartsApiSlice";
 import useShowToast from "@/components/toast/ShowToast";
+import { Alert } from "react-native";
 
 interface ShopButtonGroupProps {
   productId: number;
@@ -43,7 +44,7 @@ const ShopButtonGroup: React.FC<ShopButtonGroupProps> = ({
     }
 
     if (isError) {
-      showToast("error", error?.data?.message || "Cart created fail");
+      Alert.alert("error", error?.data?.message || "Cart Already Created");
     }
   }, [isSuccess, isError, error]);
 
@@ -54,7 +55,7 @@ const ShopButtonGroup: React.FC<ShopButtonGroupProps> = ({
         <ButtonText>Buy Now</ButtonText>
       </Button> */}
       <Button isDisabled={!quantity && true} onPress={handleCart}>
-        <ButtonIcon as={isLoading ? Spinner : ShoppingCart} marginRight="$2" />
+        <ButtonIcon  as={isLoading ? Spinner  : ShoppingCart} marginRight="$2" color="#fff" />
         <ButtonText>Add To Cart</ButtonText>
       </Button>
     </ButtonGroup>

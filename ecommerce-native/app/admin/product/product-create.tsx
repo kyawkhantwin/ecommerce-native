@@ -22,20 +22,20 @@ import {
   ButtonText,
   ButtonSpinner,
   ScrollView,
+  Alert as AlertGluestack
 } from "@gluestack-ui/themed";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { selectAllCategories } from "@/redux/reducer/categoriresApiSlice";
 import { ChevronDownIcon } from "lucide-react-native";
 import { useSelector } from "react-redux";
 import { useCreateProductMutation } from "@/redux/reducer/productsApiSlice";
-import useShowToast from "@/components/toast/ShowToast";
 import * as ImagePicker from "expo-image-picker";
 import { SaveFormat, manipulateAsync } from "expo-image-manipulator";
 import { useNavigation } from "expo-router";
+import { Alert } from "react-native";
 
 const CreateProduct = () => {
   const navigation = useNavigation();
-  const showToast = useShowToast();
   const categories = useSelector(selectAllCategories);
   const [selectedImage, setSelectedImage] = useState("");
   const [title, setTitle] = useState("");
@@ -60,7 +60,7 @@ const CreateProduct = () => {
       setSelectedImage(result.assets[0].uri);
 
       const resize = await manipulateAsync(
-        selectedImage,
+        result.assets[0].uri,
         [{ resize: { height: 400, width: 400 } }],
         {
           base64: true,
@@ -74,6 +74,16 @@ const CreateProduct = () => {
   };
 
   const handleSubmit = async () => {
+    if (!title || !description || !price || !stock || !selectedImage || !categoryId) {
+      Alert.alert("Validation Failed", "Please fill in all required fields.");
+      return;
+    }
+
+    if (isNaN(price) || isNaN(stock)) {
+      Alert.alert("Validation Failed", "Price and Stock must be valid numbers.");
+      return;
+    }
+
     await createProduct({
       title,
       description,
@@ -86,12 +96,11 @@ const CreateProduct = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      showToast("success", "Product Create Success");
-      navigation.navigate("product-list");
-    }
     if (isError) {
-      showToast("error", error?.data?.message || "Create Product Fail");
+      Alert.alert("Error", error?.data?.message || "Failed to create product.");
+    }
+    if (isSuccess) {
+      navigation.navigate("product-list");
     }
   }, [isSuccess, isError, error]);
 
@@ -100,14 +109,9 @@ const CreateProduct = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <VStack space="lg" marginHorizontal="$5">
           <Heading>Create Product</Heading>
-          <View
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="flex-start"
-          >
+          <View flexDirection="row" alignItems="center" justifyContent="flex-start">
             <Button onPress={() => navigation.navigate("product-list")}>
-            <ButtonText>Product List</ButtonText>
-
+              <ButtonText>Product List</ButtonText>
             </Button>
           </View>
 
@@ -186,43 +190,35 @@ const CreateProduct = () => {
                         </SelectContent>
                       </SelectPortal>
                     </Select>
-                    <View mb="$1">
+                    {/* <View mb="$1">
                       <Text>Thumbnail</Text>
-                    </View>
-                    <Input>
+                    </View> */}
+                    {/* <Input>
                       <InputField
                         placeholder="Thumbnail URL"
                         value={thumbnail}
                         onChangeText={setThumbnail}
                       />
-                    </Input>
+                    </Input> */}
                     <View mb="$1">
                       <Text>Images</Text>
                     </View>
-                    <View
-                      flexDirection="row"
-                      alignItems="center"
-                      justifyContent="flex-start"
-                    >
+                    <View flexDirection="row" alignItems="center" justifyContent="flex-start">
                       <Button onPress={handleImagePicker}>
-            <ButtonText>Select Image</ButtonText>
-
+                        <ButtonText>Select Image</ButtonText>
                       </Button>
                     </View>
-                    <View flexDirection="row" justifyContent="flex-end" >
-                    
+                    <View flexDirection="row" justifyContent="flex-end">
                       {selectedImage && (
                         <View mt="$2" paddingHorizontal={10}>
                           <Image
                             alt={title}
-                            source={{
-                              uri: selectedImage,
-                            }}
+                            source={{ uri: selectedImage }}
                             style={{ width: 100, height: 100 }}
                           />
                         </View>
                       )}
-                        <Button onPress={handleSubmit}>
+                      <Button onPress={handleSubmit}>
                         {isLoading && <ButtonSpinner mr={3} />}
                         <ButtonText>Create</ButtonText>
                       </Button>

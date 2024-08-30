@@ -42,7 +42,7 @@ const DetailProduct = function () {
   if (isLoading) {
     return <Spinner size="large" />;
   } else if (isError) {
-    showToast(error);
+    showToast('error' , 'something Wrong');
   }
 
   return (

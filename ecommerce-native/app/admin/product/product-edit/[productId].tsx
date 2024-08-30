@@ -53,6 +53,7 @@ const EditProduct = () => {
   const [categoryId, setCategoryId] = useState(product.category.id);
   const [thumbnail, setThumbnail] = useState(product.thumbnail);
 
+
   const [updateProduct, { isLoading, isError, error, isSuccess }] =
     useUpdateProductMutation();
 
@@ -158,8 +159,8 @@ const EditProduct = () => {
                       <InputField
                         placeholder="Product Price"
                         keyboardType="numeric"
-                        value={price}
-                        onChangeText={setPrice}
+                        value={String(price)}
+                        onChangeText={value => setPrice(Number(value))}
                       />
                     </Input>
                   </VStack>
@@ -171,16 +172,17 @@ const EditProduct = () => {
                       <InputField
                         placeholder="Product Stock"
                         keyboardType="numeric"
-                        value={stock}
-                        onChangeText={setStock}
+                        value={String(stock)}
+                        onChangeText={value => stock(Number(value))}
+                        
                       />
                     </Input>
                     <FormControlLabel mb="$1">
                       <FormControlLabelText>Category</FormControlLabelText>
                     </FormControlLabel>
                     <Select
-                      selectedValue={categoryId}
-                      onValueChange={setCategoryId}
+                      selectedValue={String(categoryId)}
+                      onValueChange={(value) => setCategoryId(Number(value))}
                     >
                       <SelectTrigger variant="outline" size="md">
                         <SelectInput placeholder="Select category" />
@@ -204,16 +206,16 @@ const EditProduct = () => {
                         </SelectContent>
                       </SelectPortal>
                     </Select>
-                    <FormControlLabel mb="$1">
+                    {/* <FormControlLabel mb="$1">
                       <FormControlLabelText>Thumbnail</FormControlLabelText>
-                    </FormControlLabel>
-                    <Input>
+                    </FormControlLabel> */}
+                    {/* <Input>
                       <InputField
                         placeholder="Thumbnail URL"
                         value={thumbnail}
                         onChangeText={setThumbnail}
                       />
-                    </Input>
+                    </Input> */}
                     <FormControlLabel mb="$1">
                       <FormControlLabelText>Images</FormControlLabelText>
                     </FormControlLabel>
