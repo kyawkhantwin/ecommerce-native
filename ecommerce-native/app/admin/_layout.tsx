@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Tabs, router } from "expo-router";
 import { selectCurrentUser } from "@/redux/auth/authSlice";
@@ -6,6 +6,23 @@ import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import useShowToast from "@/components/toast/ShowToast";
 
 const AdminLayout = () => {
+  const currentUser = useSelector(selectCurrentUser);
+  const showToast = useShowToast();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) {
+      if (!currentUser?.isAdmin) {
+        showToast("error", "Unauthorized access");
+        router.replace("/");
+      }
+    }
+  }, [isMounted, currentUser]);
+
   return (
     <Tabs
       screenOptions={{

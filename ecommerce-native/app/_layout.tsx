@@ -35,9 +35,10 @@ export default function RootLayout() {
   }
 
   return (
+    <GluestackUIProvider config={config} colorMode={colorScheme}>
+
     <Provider store={store}>
       <AuthProvider>
-      <GluestackUIProvider config={config} colorMode={colorScheme}>
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
@@ -56,8 +57,9 @@ export default function RootLayout() {
             </Stack>
           </SafeAreaProvider>
         </ThemeProvider>
-      </GluestackUIProvider>
       </AuthProvider>
     </Provider>
+    </GluestackUIProvider>
+
   );
 }

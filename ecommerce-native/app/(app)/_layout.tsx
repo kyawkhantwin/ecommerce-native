@@ -1,17 +1,19 @@
 import { Stack } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'expo-router';
+import { router } from "expo-router";
 
 const AppLayout = () => {
-  const { currentUser, isReady } = useAuth();
-  const router = useRouter();
+  const { currentUser } = useAuth();
+  const [isReady,setIsReady] = useState(false)
+  useEffect(()=>{
+setIsReady(true)
+  },[])
 
   useEffect(() => {
-    if (isReady) {
-      if (!currentUser) {
+    if (isReady && !currentUser ) {
         router.replace("/login");
-      }
     }
   }, [currentUser, isReady]);
 

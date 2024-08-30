@@ -31,7 +31,7 @@ import { router } from "expo-router";
 import { useAuth } from "@/context/AuthContext";
 
 const Login = () => {
-  const {currentUser} = useAuth()
+  const {currentUser } = useAuth()
   const showToast = useShowToast();
   const dispatch = useDispatch();
 
@@ -40,9 +40,15 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [login, { isSuccess, isError, error, isLoading }] = useLoginMutation();
-
+  const [isReady ,setIsReady] = useState(false)
+useEffect(()=>{
+  setIsReady(true)
+})
   useEffect(() => {
-    if (isSuccess || currentUser) {
+    if(isReady && currentUser){
+      router.replace("/");
+    }
+    if (isSuccess ) {
       router.replace("/");
     }
     if (isError) {

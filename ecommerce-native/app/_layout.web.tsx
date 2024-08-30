@@ -9,6 +9,7 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const ThemeContext = createContext(null);
 
@@ -19,17 +20,21 @@ export default function TabLayout() {
     setColorScheme(value);
   };
   return (
+    <GluestackUIProvider config={config} colorMode={colorScheme}>
+
     <ThemeContext.Provider value={{ colorScheme, toggleColorScheme }}>
       <Provider store={store}>
-        <GluestackUIProvider config={config} colorMode={colorScheme}>
+        <AuthProvider>
           <ThemeProvider
             value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
           >
             <AppStack />
           </ThemeProvider>
-        </GluestackUIProvider>
+      </AuthProvider>
       </Provider>
     </ThemeContext.Provider>
+    </GluestackUIProvider>
+
   );
 }
 

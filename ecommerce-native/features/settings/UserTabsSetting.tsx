@@ -17,7 +17,7 @@ import * as ImagePicker from "expo-image-picker";
 import { selectCurrentUser, updateAuthUser } from "@/redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Mail, Map, Pen, PencilLine, User } from "lucide-react-native";
-import placeholder from "@/assets/images/placeholder.jpg"
+import { Platform } from "react-native";
 
 const UserTabsSetting: React.FC = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -38,21 +38,12 @@ const UserTabsSetting: React.FC = () => {
       quality: 1,
     });
 
-    if (!result.canceled && result.assets && result.assets.length > 0) {
+    if (!result.canceled) {
       const selectedImageUri = result.assets[0].uri;
 
-      const resizedImage = await manipulateAsync(
-        selectedImageUri,
-        [{ resize: { height: 400, width: 400 } }],
-        {
-          base64: true,
-          compress: 1,
-          format: SaveFormat.PNG,
-        }
-      );
-
-      setUserImage(resizedImage.uri);
-      handleUpdateUserImage(resizedImage.uri);
+   
+      setUserImage(selectedImageUri);
+      handleUpdateUserImage(userImage);
     }
   };
 
@@ -83,6 +74,7 @@ const UserTabsSetting: React.FC = () => {
         alignSelf="center"
         borderRadius="$full"
       >
+
         <AvatarImage
           alt="userAvatar"
           source={{
