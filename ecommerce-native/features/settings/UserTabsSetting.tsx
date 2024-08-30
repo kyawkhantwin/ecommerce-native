@@ -17,6 +17,7 @@ import * as ImagePicker from "expo-image-picker";
 import { selectCurrentUser, updateAuthUser } from "@/redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Mail, Map, Pen, PencilLine, User } from "lucide-react-native";
+import placeholder from "@/assets/images/placeholder.jpg"
 
 const UserTabsSetting: React.FC = () => {
   const currentUser = useSelector(selectCurrentUser);
