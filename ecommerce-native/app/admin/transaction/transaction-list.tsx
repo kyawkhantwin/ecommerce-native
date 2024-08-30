@@ -83,7 +83,10 @@ const Transaction = () => {
                   </VStack>
                   <Text flex={1}>{transaction.user.username}</Text>
                   <View flex={1}>
+                    <Text>
                     {transaction.order?.productOrders?.length}
+
+                    </Text>
                   </View>
                   <Text flex={1}>{transaction.total}</Text>
                   <Box flexDirection="row" alignItems="center" flex={1}>

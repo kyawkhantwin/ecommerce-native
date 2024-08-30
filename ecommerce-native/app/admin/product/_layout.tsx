@@ -6,6 +6,7 @@ const ProductLayout = () => {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="product-list"
     >
       <Stack.Screen name="product-list" />
       <Stack.Screen name="product-create" />

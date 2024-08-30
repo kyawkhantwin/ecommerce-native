@@ -130,7 +130,7 @@ const Order = () => {
 
                   {/* Product Orders */}
                   <VStack flex={2}>
-                    {order.productOrders.length}
+                    <Text>{order.productOrders.length}</Text>
                   </VStack>
 
                   {/* Total Amount */}
