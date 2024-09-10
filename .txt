@@ -1,4 +1,4 @@
- scp -i ecommerce-native.pem -r /Users/user/Desktop/coding/ecommerce-full-native/ecommerce-backend  ec2-user@3.0.184.99:/home/ec2-user/downloads
+ scp -i portfolio.pem -r /Users/user/Desktop/coding/ecommerce-full-native/ecommerce-backend . ec2-user@3.0.184.99:/home/ec2-user/downloads
 
 
  proxy_pass http://localhost:3000;
